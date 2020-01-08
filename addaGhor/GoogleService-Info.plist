@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>1001252304276-prdr54qaefgpeao01jq8qfi2866k5l1e.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.1001252304276-prdr54qaefgpeao01jq8qfi2866k5l1e</string>
+	<key>API_KEY</key>
+	<string>AIzaSyDfA3iJvdt4HWCHIKBfYdIm73oet0yU74Y</string>
+	<key>GCM_SENDER_ID</key>
+	<string>1001252304276</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.raiyankhan.addaGhor</string>
+	<key>PROJECT_ID</key>
+	<string>addaghor-47893</string>
+	<key>STORAGE_BUCKET</key>
+	<string>addaghor-47893.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:1001252304276:ios:6c321a6a745d4ec60d0b81</string>
+	<key>DATABASE_URL</key>
+	<string>https://addaghor-47893.firebaseio.com</string>
+</dict>
+</plist>
