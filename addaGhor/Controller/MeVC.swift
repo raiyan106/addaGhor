@@ -28,7 +28,7 @@ class MeVC: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
-        
+        profileImage.makeRounded()
         emailLabbel.text = Auth.auth().currentUser?.email
         DataService.instace.getCurrentUserFeed { (returnedMsg) in
             self.ownFeedArray = returnedMsg.reversed()
@@ -58,9 +58,16 @@ class MeVC: UIViewController {
         present(logoutPop, animated: true, completion: nil)
     }
     
+    @IBAction func addProfileImg(_ sender: Any) {
+        uploadPhoto()
+        
+    }
     
     
 }
+
+
+
 
 extension MeVC: UITableViewDelegate, UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -76,4 +83,28 @@ extension MeVC: UITableViewDelegate, UITableViewDataSource{
     }
 
 
+}
+
+extension MeVC: UIImagePickerControllerDelegate, UINavigationControllerDelegate{
+    func uploadPhoto(){
+        let imgPicker = UIImagePickerController()
+        imgPicker.delegate = self
+        imgPicker.allowsEditing = true
+        imgPicker.sourceType = .photoLibrary
+        imgPicker.modalPresentationStyle = .fullScreen
+        present(imgPicker, animated: true, completion: nil)
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        guard let img = info[UIImagePickerController.InfoKey.editedImage] as? UIImage else {return}
+//        print(info)
+        profileImage.image = img
+        dismiss(animated: true, completion: nil)
+    }
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        dismiss(animated: true, completion: nil)
+    }
+    
+    
 }
