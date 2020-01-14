@@ -7,6 +7,7 @@
 //
 import Firebase
 import UIKit
+import FirebaseStorage
 
 class MeVC: UIViewController {
     var ownFeedArray = [String]()
@@ -33,6 +34,9 @@ class MeVC: UIViewController {
         DataService.instace.getCurrentUserFeed { (returnedMsg) in
             self.ownFeedArray = returnedMsg.reversed()
             self.tableView.reloadData()
+        }
+        DataService.instace.getUserImageForMeVC { (img) in
+            self.profileImage.image = img
         }
         
         
@@ -62,8 +66,6 @@ class MeVC: UIViewController {
         uploadPhoto()
         
     }
-    
-    
 }
 
 
@@ -99,6 +101,16 @@ extension MeVC: UIImagePickerControllerDelegate, UINavigationControllerDelegate{
         guard let img = info[UIImagePickerController.InfoKey.editedImage] as? UIImage else {return}
 //        print(info)
         profileImage.image = img
+//        upload profile image in Firestore
+        DataService.instace.uploadUserImage(forUserId: Auth.auth().currentUser!.uid, uploadImg: img) { (success, err) in
+            if success {
+                print("Successful upload")
+            }
+            else{
+                print("sth went wrong")
+            }
+        }
+        
         dismiss(animated: true, completion: nil)
     }
     

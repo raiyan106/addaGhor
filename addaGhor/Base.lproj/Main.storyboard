@@ -659,18 +659,23 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4CQ-Bv-Ryt">
+                                <rect key="frame" x="92" y="617" width="240" height="186"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <viewLayoutGuide key="safeArea" id="WKq-3v-IKq"/>
                     </view>
                     <connections>
                         <outlet property="emailField" destination="M99-4M-TKM" id="3wD-WC-bfo"/>
+                        <outlet property="image" destination="4CQ-Bv-Ryt" id="1I9-Kh-b6N"/>
                         <outlet property="passwordField" destination="rjM-Re-66T" id="ogh-vl-O2D"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vo9-32-STh" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-806" y="-23"/>
+            <point key="canvasLocation" x="-807.24637681159425" y="-23.4375"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="yl2-sM-qoP">

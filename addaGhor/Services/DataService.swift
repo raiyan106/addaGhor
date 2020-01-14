@@ -8,8 +8,10 @@
 
 import Foundation
 import Firebase
+import FirebaseStorage
 
 let DB_BASE = Database.database().reference()
+let STORAGE_BASE = Storage.storage().reference()
 
 class DataService{
     static let instace = DataService()
@@ -18,6 +20,7 @@ class DataService{
     private var _REF_USERS = DB_BASE.child("users")
     private var _REF_GROUPS = DB_BASE.child("groups")
     private var _REF_FEED = DB_BASE.child("feed")
+    private var _STORAGE_REF_USER_IMAGES = STORAGE_BASE.child("images")
     
     var REF_BASE: DatabaseReference{
         return _REF_BASE
@@ -31,6 +34,63 @@ class DataService{
     var REF_FEED: DatabaseReference{
         return _REF_FEED
     }
+    var REF_USER_IMAGES: StorageReference{
+        return _STORAGE_REF_USER_IMAGES
+    }
+    
+    func uploadUserImage(forUserId uid: String, uploadImg img: UIImage?, handler: @escaping (_ success: Bool, _ error: Error?)->Void){
+        guard let uploadData = img?.jpegData(compressionQuality: 0.2) else {return}
+        
+        let storageRef = REF_USER_IMAGES.child("profileImgOf-\(uid).jpg")
+        storageRef.putData(uploadData, metadata: nil) { (metadata, error) in
+            if error != nil{
+                handler(false,nil)
+            }
+            else{
+                storageRef.downloadURL { (url, err) in
+                    guard let url = url else {return}
+                    self.REF_USERS.child(uid).updateChildValues(["profileImgURL" : String(describing: url)])
+                    
+                    handler(true, error)
+                }
+            }
+        }
+    }
+    
+    func getUserImageForMeVC(handler: @escaping (_ img: UIImage)->Void){
+        REF_USERS.observeSingleEvent(of: .value) { (userSS) in
+            guard let userSS = userSS.children.allObjects as? [DataSnapshot] else{return}
+            for user in userSS{
+                if user.key == Auth.auth().currentUser?.uid{
+                    guard let imgURL = user.childSnapshot(forPath: "profileImgURL").value as? String else{
+                        
+                        handler(UIImage(named: "defaultProfileImage")!)
+                        return
+                    }
+                    let url = NSURL(string: imgURL)
+                    URLSession.shared.dataTask(with: url! as URL) { (data, response, error) in
+                        if error != nil{
+                            print("image not found")
+                            return
+                        }
+                        DispatchQueue.main.async {
+                            if let img = UIImage(data: data!){
+                                handler(img)
+                            } else{
+                                print("nil data found")
+                            }
+                        }
+                        
+                            
+                        
+                    }.resume()
+                    
+                    return
+                }
+            }
+        }
+    }
+    
     
     func getCurrentUserFeed(handler: @escaping (_ msg: [String])->Void){
         var msgArray = [String]()
@@ -62,6 +122,7 @@ class DataService{
     }
     
     func createDBUser(uid:String, userData: Dictionary<String,Any>){
+        print("CreateDBUser called succesfully")
         REF_USERS.child(uid).updateChildValues(userData)
     }
     

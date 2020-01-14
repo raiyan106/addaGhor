@@ -7,7 +7,7 @@
 //
 
 import Foundation
-
+import UIKit
 class Message{
     private var _content: String
     private var _senderID: String

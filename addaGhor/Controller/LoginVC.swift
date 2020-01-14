@@ -18,6 +18,8 @@ class LoginVC: UIViewController {
         // Do any additional setup after loading the view.
     }
     
+    @IBOutlet weak var image: UIImageView!
+    
     @IBOutlet weak var emailField: InsetTextField!
     
     @IBOutlet weak var passwordField: InsetTextField!
